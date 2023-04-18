@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>JS 二维码生成</title>
+</head>
+
+<body>
+    <h1>JS 二维码生成</h1>
+    <form>
+        <p>内容：<input type="text" id="text" value="Burger Studio" /></p>
+        <p>宽度：<input type="number" id="width" value="256" /></p>
+        <p>高度：<input type="number" id="height" value="256" /></p>
+        <p>前景色：<input type="text" id="colorDark" value="#000000" /></p>
+        <p>背景色：<input type="text" id="colorLight" value="#ffffff" /></p>
+    </form>
+    <button onclick="makeqr();">生成</button>
+    <br><br>
+    <div id="qrcode"></div>
+    <script src="js/qrcode.min.js"></script>
+    <script>
+        function makeqr() {
+            document.getElementById("qrcode").innerHTML = "";
+            var qrcode = new QRCode("qrcode", {
+                text: document.getElementById("text").value,
+                width: document.getElementById("width").value,
+                height: document.getElementById("height").value,
+                colorDark: document.getElementById("colorDark").value,
+                colorLight: document.getElementById("colorLight").value,
+                correctLevel: QRCode.CorrectLevel.H
+            });
+            if (!document.getElementById("text").value || !document.getElementById("width").value || !document.getElementById("height").value || !document.getElementById("colorDark").value || !document.getElementById("colorLight").value) {
+                alert("请将表单填充完整");
+            }
+        }
+        document.getElementById("colorLight").addEventListener("keydown", function(e) {
+            if (e.keyCode == 13) {
+                makeqr();
+            }
+        });
+    </script>
+</body>
+
+</html>
